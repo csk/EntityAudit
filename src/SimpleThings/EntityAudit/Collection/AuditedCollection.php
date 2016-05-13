@@ -504,7 +504,10 @@ class AuditedCollection implements Collection
             $sql .= ') ';
             //end check for deleted revisions older than requested
 
-            $sql .= 'GROUP BY '.implode(', ', $this->metadata->getIdentifierColumnNames())./*', '.$this->configuration->getRevisionTypeFieldName().*/' ';
+
+            // $sql .= 'GROUP BY '.implode(', ', $this->metadata->getIdentifierColumnNames())./*', '.$this->configuration->getRevisionTypeFieldName().*/' ';
+            // Uncommented the commented code of line above which caused problems
+            $sql .= 'GROUP BY '.implode(', ', $this->metadata->getIdentifierColumnNames()).', '.$this->configuration->getRevisionTypeFieldName().' ';
             $sql .= 'HAVING '.$this->configuration->getRevisionTypeFieldName().' <> ?';
             //add rev type parameter
             $params[] = 'DEL';
